@@ -13,15 +13,25 @@ export default class RouteSignUp extends Route {
          path: '/signup',
          params: {
              email: true,
-             password: false,
+             password: true,
+             pseudo: true
          },
     })
     async signup(ctx) {
         const body = this.body(ctx);
-        this.sendOk(ctx, {
-            msg: "SignUp",
-            email: body.email,
-            password : body.password
-        });
+        if (body.email && body.password && body.pseudo)
+        {
+            const res = await this.db.insertNewUser(body);
+            if (res)
+            {
+                this.sendCreated(ctx, {
+                    msg: `Welcome ${body.pseudo} ! You can chat now !`
+                });
+            } else {
+                this.sendInternalServerError(ctx, {
+                    msg: `Sorry, we have a error with the database`
+                })
+            }
+        }
     }
 }

@@ -12,7 +12,7 @@ import {
   RateLimit,
   RateLimitStores,
 } from 'koa-smart/middlewares';
-
+import Database from './Database';
 
 // Set Default Option
 RateLimit.defaultOptions({
@@ -27,12 +27,15 @@ export default class App extends AppBase { // the starting class must extend app
       port: 3000,
       // routeParam is an object and it will be give as parametter to all routes
       // so for example you can give models to all your route so you can access on route 
-      routeParam: {},
+      routeParam: {
+        db: new Database('jfs', 'root', '6igsrkm0#', 'localhost')
+      },
     });
   }
 
-
   async start() {
+
+    await this.routeParam.db.connect();
     super.addMiddlewares([ // we add the relevant middlewares to our API
       cors({ credentials: true }), // add cors headers to the requests
       helmet(), // adds various security headers to our API's responses
@@ -46,11 +49,10 @@ export default class App extends AppBase { // the starting class must extend app
       logger(), // gives detailed logs of each request made on the API
       addDefaultBody(), // if no body is present, put an empty object "{}" in its place.
       compress({}), // compresses requests made to the API
-      RateLimit.middleware({ interval: { min: 1 }, max: 100 }) // this will limited every user to call a maximum of 100 request per minute
+      RateLimit.middleware({ interval: { min: 1 }, max: 100 }), // this will limited every user to call a maximum of 100 request per minute
     ]);
 
     super.mountFolder(join(__dirname, 'routes'), '/'); // adds a folder to scan for route files
     return super.start();
   }
 }
-

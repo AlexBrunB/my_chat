@@ -4,6 +4,7 @@ export default class Route extends RouteBase {
 
   constructor(params) {
     super(params);
+    this.db = params.db;
   }
 
   async beforeRoute(ctx, infos, next) {
