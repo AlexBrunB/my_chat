@@ -28,7 +28,7 @@ export default class App extends AppBase { // the starting class must extend app
       // routeParam is an object and it will be give as parametter to all routes
       // so for example you can give models to all your route so you can access on route 
       routeParam: {
-        db: new Database('jfs', 'root', '6igsrkm0#', 'localhost')
+        db: new Database('jfs', 'root', 'root', 'localhost')
       },
     });
   }
