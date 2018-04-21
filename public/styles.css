@@ -1,0 +1,71 @@
+/* The side navigation menu */
+.sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 200px; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    left: 0;
+    /* background-color: #cc3300; /* Black*/
+    background-image: url('http://kerensnursery.com/wp-content/uploads/2013/05/sidebar-background.png');
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 60px; /* Place content 60px from the top */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    padding-left: 1em;
+}
+
+.content {
+    margin-left: 200px;
+    padding: 1em;
+    align-content: center; 
+}
+
+/* The navigation menu links */
+.sidenav Link {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: whitesmoke;
+    display: block;
+    transition: 0.3s;
+}
+
+.sidenav h3, .sidenav p {
+    color: whitesmoke;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav Link:hover {
+    color: red;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+/* Full-width input fields */
+input[type=text], input[type=email], input[type=password] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+  }
+  
+  input[type=text]:focus, input[type=email]:focus, input[type=password]:focus {
+    background-color: #ddd;
+    outline-color: #9999ff;
+  }
+  
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  form {
+      padding: 2em;
+      align-content: center;
+    }
