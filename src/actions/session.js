@@ -3,8 +3,8 @@ import api from '../api';
 import { fetchUserRooms } from './rooms';
 import { Socket } from 'phoenix';
 
-const API_URL = 'http://localhost:3000/';
-const WEBSOCKET_URL = 'ws://localhost:3000/';
+const API_URL = process.env.REACT_APP_API_URL;
+const WEBSOCKET_URL = 'ws://localhost:3000';
 
 function connectToSocket(dispatch) {
   const token = JSON.parse(localStorage.getItem('token'));
@@ -24,23 +24,23 @@ function setCurrentUser(dispatch, response) {
 }
 
 export function login(data, router) {
-  return dispatch => api.post('signin', data)
+  return dispatch => api.post('/signin', data)
     .then((response) => {
       setCurrentUser(dispatch, response);
-      dispatch(reset('login'));
+      dispatch(reset('/login'));
     });
 }
 
 export function signup(data, router) {
-  return dispatch => api.post('signup', data)
+  return dispatch => api.post('/signup', data)
     .then((response) => {
       setCurrentUser(dispatch, response);
-      dispatch(reset('signup'));
+      dispatch(reset('/signup'));
     });
 }
 
 export function logout(router) {
-  return dispatch => api.fetch('admin')
+  return dispatch => api.fetch('/admin')
     .then(() => {
       localStorage.removeItem('token');
       dispatch({ type: 'LOGOUT' });

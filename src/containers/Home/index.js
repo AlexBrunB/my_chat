@@ -31,7 +31,7 @@ type Props = {
 
 class Home extends Component {
   static contextTypes = {
-    router: PropTypes.object,
+    router: PropTypes.func,
   }
 
   componentDidMount() {
@@ -46,6 +46,8 @@ class Home extends Component {
 
   renderRooms() {
     const currentUserRoomIds = [];
+    console.log('1 => ' + this.props.currentUserRooms);
+    console.log('2 => ' + this.props.rooms);
     this.props.currentUserRooms.map(room => currentUserRoomIds.push(room.id));
 
     return this.props.rooms.map(room =>
@@ -59,7 +61,7 @@ class Home extends Component {
   }
 
   render() {
-    return (
+    return ( 
       <div style={{ flex: '1' }}>
         <Navbar />
         <div className={`card ${css(styles.card)}`}>
