@@ -1,7 +1,7 @@
 // @flow
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { connectToChannel, leaveChannel, createMessage, loadOlderMessages } from '../../actions/room'; // add loadOlderMessages
+import { connectToChannel, leaveChannel, createMessage, loadOlderMessages } from '../../actions/room';
 import MessageList from '../../components/MessageList';
 import MessageForm from '../../components/MessageForm';
 import RoomNavbar from '../../components/RoomNavbar';
@@ -15,9 +15,6 @@ type Props = {
   socket: any,
   channel: any,
   room: Object,
-  params: {
-    id: number,
-  },
   connectToChannel: () => void,
   leaveChannel: () => void,
   createMessage: () => void,
@@ -26,27 +23,24 @@ type Props = {
   currentUser: Object,
   loadingOlderMessages: boolean,
   pagination: {
-    total_pages: number,
-    total_entries: number,
-    page_size: number,
-    page_number: number,
+  total_pages: number,
+  total_entries: number,
+  page_size: number,
+  page_number: number,
   },
   loadOlderMessages: () => void,
 }
 
 class Room extends Component {
   componentDidMount() {
-    this.props.connectToChannel(this.props.socket, this.props.params.id);
+    this.props.connectToChannel(this.props.socket, this.props.location.state.id);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.id !== this.props.params.id) {
-      this.props.leaveChannel(this.props.channel);
-      this.props.connectToChannel(nextProps.socket, nextProps.params.id);
-    }
-    if (!this.props.socket && nextProps.socket) {
-      this.props.connectToChannel(nextProps.socket, nextProps.params.id);
-    }
+    const id = nextProps.location.pathname.split('/')[2];
+    this.props.leaveChannel(this.props.channel);
+    this.props.connectToChannel(nextProps.socket, id);
+    this.props.connectToChannel(nextProps.socket, id);
   }
 
   componentWillUnmount() {
@@ -55,16 +49,15 @@ class Room extends Component {
 
   props: Props
 
-  // new function
   handleLoadMore = () =>
     this.props.loadOlderMessages(
-      this.props.params.id,
+      this.props.location.state.id,
       { last_seen_id: this.props.messages[0].id }
     )
 
   handleMessageCreate = (data) => {
     this.props.createMessage(this.props.channel, data);
-    this.messageList.scrollToBottom(); // new line
+    this.messageList.scrollToBottom();
   }
 
   render() {

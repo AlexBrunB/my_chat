@@ -31,8 +31,8 @@ type Props = {
 
 class Home extends Component {
   static contextTypes = {
-    router: PropTypes.func,
-  }
+    router: PropTypes.object,
+  };
 
   componentDidMount() {
     this.props.fetchRooms();
@@ -40,14 +40,12 @@ class Home extends Component {
 
   props: Props
 
-  handleNewRoomSubmit = data => this.props.createRoom(data, this.context.router);
+  handleNewRoomSubmit = data => {this.props.createRoom(data, this.context.router);}
 
   handleRoomJoin = roomId => this.props.joinRoom(roomId, this.context.router);
 
   renderRooms() {
     const currentUserRoomIds = [];
-    console.log('1 => ' + this.props.currentUserRooms);
-    console.log('2 => ' + this.props.rooms);
     this.props.currentUserRooms.map(room => currentUserRoomIds.push(room.id));
 
     return this.props.rooms.map(room =>

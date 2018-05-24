@@ -17,8 +17,7 @@ function connectToSocket(dispatch) {
 }
 
 function setCurrentUser(dispatch, response) {
-  console.log(JSON.stringify(response));
-  localStorage.setItem('token', response.data.date);
+  localStorage.setItem('token', response.data.id);
   dispatch({ type: 'AUTHENTICATION_SUCCESS', response });
   dispatch(fetchUserRooms(response.data.id));
 }

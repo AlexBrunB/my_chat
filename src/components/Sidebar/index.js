@@ -71,7 +71,7 @@ type RoomLinkProps = {
 const RoomLink = ({ room }: RoomLinkProps) =>
   <Link to={`/r/${room.id}`} className={css(styles.link)} activeClassName={css(styles.activeLink)}>
     <div className={css(styles.badge)}>
-      <span>{room.name}</span>
+      <span>{room.name.charAt(0)}</span>
     </div>
   </Link>;
 
@@ -83,7 +83,7 @@ type Props = {
 
 const Sidebar = ({ rooms, router, onLogoutClick }: Props) =>
   <div className={css(styles.sidebar)}>
-    {rooms.length > 0 ? rooms.map(room => <RoomLink key={room.id} room={room} />) : <div></div>};
+    {rooms.map(room => <RoomLink key={room.id} room={room} />)};
     <Link
       to="/"
       activeOnlyWhenExact
