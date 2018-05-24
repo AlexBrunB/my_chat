@@ -23,7 +23,8 @@ export function createRoom(data, router) {
 }
 
 export function joinRoom(roomId, router) {
-  return dispatch => api.post(`/rooms/${roomId}/join`, {user_id: localStorage.getItem('token')})
+  const id = parseInt(localStorage.getItem('token'));
+  return dispatch => api.post(`/rooms/${roomId}/join`, JSON.stringify({'user_id': id}))
     .then((response) => {
       dispatch({ type: 'ROOM_JOINED', response });
       router.history.push({pathname: 'r/${response.data.id}', state: {id: response.data.id}});
