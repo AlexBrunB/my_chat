@@ -18,7 +18,7 @@ export function createRoom(data, router) {
   return dispatch => api.post('/rooms', data)
     .then((response) => {
       dispatch({ type: 'CREATE_ROOM_SUCCESS', response });
-      router.history.push({pathname: 'r/${response.data.id}', state: {id: response.data.id}});
+      router.history.push({pathname: `r/${response.data.id}`, state: {id: response.data.id}});
     });
 }
 
@@ -27,7 +27,7 @@ export function joinRoom(roomId, router) {
   return dispatch => api.post(`/rooms/${roomId}/join`, {'user_id': id})
     .then((response) => {
       dispatch({ type: 'ROOM_JOINED', response });
-      router.history.push({pathname: 'r/${response.data.id}', state: {id: response.data.id}});
+      router.history.push({pathname: `r/${response.data.id}`, state: {id: response.data.id}});
     });
 }
 
