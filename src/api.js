@@ -37,6 +37,7 @@ export default {
 
   post(url, data) {
     const body = JSON.stringify(data);
+    console.log(body);
     return fetch(`${API}${url}`, {
       method: 'POST',
       headers: headers(),
