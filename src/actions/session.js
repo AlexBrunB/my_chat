@@ -4,10 +4,10 @@ import { fetchUserRooms } from './rooms';
 import { Socket } from 'phoenix';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const WEBSOCKET_URL = 'ws://localhost:3000';
+const WEBSOCKET_URL = 'ws://localhost:4000';
 
 function connectToSocket(dispatch) {
-  const token = JSON.parse(localStorage.getItem('token'));
+  const token = localStorage.getItem('token');
   const socket = new Socket(`${WEBSOCKET_URL}/socket`, {
     params: { token },
     logger: (kind, msg, data) => { console.log(`${kind}: ${msg}`, data); }
@@ -17,7 +17,8 @@ function connectToSocket(dispatch) {
 }
 
 function setCurrentUser(dispatch, response) {
-  localStorage.setItem('token', response.data.id);
+  localStorage.setItem('id', response.data.id);
+  localStorage.setItem('token', response.data.bearer);
   dispatch({ type: 'AUTHENTICATION_SUCCESS', response });
   dispatch(fetchUserRooms(response.data.id));
   connectToSocket(dispatch);
@@ -52,10 +53,13 @@ export function authenticate() {
       dispatch({ type: 'AUTHENTICATION_REQUEST' });
       return api.post('/signin')
         .then((response) => {
+          console.log('authenticate');
+          console.log(response);
           setCurrentUser(dispatch, response);
         })
         .catch(() => {
           localStorage.removeItem('token');
+          localStorage.removeItem('id');
           window.location = '/login';
         });
     };

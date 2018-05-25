@@ -11,6 +11,7 @@ const syncPresentUsers = (dispatch, presences) => {
 
 export function connectToChannel(socket, roomId) {
   return (dispatch) => {
+
     if (!socket) { return false; }
     const channel = socket.channel(`rooms:${roomId}`);
     let presences = {};

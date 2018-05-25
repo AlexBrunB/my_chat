@@ -33,7 +33,8 @@ type Props = {
 
 class Room extends Component {
   componentDidMount() {
-    console.log(this.props);
+    console.log(this.props.socket);
+    console.log(this.props.channel);
     this.props.connectToChannel(this.props.socket, this.props.location.state.id);
   }
 
@@ -57,7 +58,7 @@ class Room extends Component {
     )
 
   handleMessageCreate = (data) => {
-    this.props.createMessage(this.props.channel, data);
+    this.props.createMessage(this.props.socket.channels[0], data);
     this.messageList.scrollToBottom();
   }
 

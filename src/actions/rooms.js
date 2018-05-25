@@ -23,7 +23,7 @@ export function createRoom(data, router) {
 }
 
 export function joinRoom(roomId, router) {
-  const id = parseInt(localStorage.getItem('token'));
+  const id = parseInt(localStorage.getItem('id'));
   return dispatch => api.post(`/rooms/${roomId}/join`, {'user_id': id})
     .then((response) => {
       dispatch({ type: 'ROOM_JOINED', response });
@@ -33,10 +33,13 @@ export function joinRoom(roomId, router) {
 
 export function connectToChannel(socket, roomId) {
     return (dispatch) => {
+      console.log('erer')
       if (!socket) { return false; }
       const channel = socket.channel(`/rooms:${roomId}`);
-  
+console.log(channel);
+
       channel.join().receive('ok', (response) => {
+        console.log('wtf');
         dispatch({ type: 'ROOM_CONNECTED_TO_CHANNEL', response, channel });
       });
   

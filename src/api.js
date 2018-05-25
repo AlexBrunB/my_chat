@@ -1,7 +1,6 @@
 const API = process.env.REACT_APP_API_URL;
 
 function headers() {
-  //const token = JSON.parse(localStorage.getItem('token'));
   const token = localStorage.getItem('token');
   return {
     Accept: 'application/json',
@@ -37,7 +36,6 @@ export default {
 
   post(url, data) {
     const body = JSON.stringify(data);
-    console.log(body);
     return fetch(`${API}${url}`, {
       method: 'POST',
       headers: headers(),
