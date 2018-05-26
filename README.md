@@ -2,7 +2,7 @@
 
 ## Informations
 
-    Front listen *:30001
+    Front listen *:3001
 
 ## How To:
     $> npm install
