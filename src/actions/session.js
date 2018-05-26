@@ -4,7 +4,7 @@ import { fetchUserRooms } from './rooms';
 import { Socket } from 'phoenix';
 
 const API_URL = process.env.REACT_APP_API_URL;
-const WEBSOCKET_URL = 'ws://localhost:4000';
+const WEBSOCKET_URL = 'ws://82.224.142.168:4000';
 
 function connectToSocket(dispatch) {
   const token = localStorage.getItem('token');
@@ -53,8 +53,6 @@ export function authenticate() {
       dispatch({ type: 'AUTHENTICATION_REQUEST' });
       return api.post('/signin')
         .then((response) => {
-          console.log('authenticate');
-          console.log(response);
           setCurrentUser(dispatch, response);
         })
         .catch(() => {
