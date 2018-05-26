@@ -1,10 +1,9 @@
-### My_chat Front App
+# My_chat Front App
 
-# Informations
+## Informations
 
-  Front listen *:30001
+    Front listen *:30001
 
-# How To:
-
-  $> npm install;
-  $> npm start;
+## How To:
+    $> npm install
+    $> npm start
